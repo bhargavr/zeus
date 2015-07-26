@@ -97,21 +97,5 @@ public class AccountDao
 	 
 	}
 	
-	@Transactional
-	public void createTeam(Race race) throws UsernameAlreadyInUseException
-	{
-		try
-		{
-			jdbcTemplate
-					.update(
-							"insert into hyg_user (create_date, raceName, raceType, raceOwner, raceTeams, racePreference, raceMotivation) values ( ?, ?, ?, ?, ?, ?, ?)",
-							 new Date(),race.getRacename(),race.getRaceType(),race.getRaceOwner(),race.getRaceTeams(),race.getRacePreference(),race.getRaceMotivation());
-		}
-		catch (final DuplicateKeyException e)
-		{
-			throw new UsernameAlreadyInUseException(race.getRacename());
-		}
-	}
-	
 
 }

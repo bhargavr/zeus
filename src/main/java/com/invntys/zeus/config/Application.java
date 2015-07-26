@@ -38,8 +38,8 @@ public class Application
 		DriverManagerDataSource mysqldataSource = new DriverManagerDataSource();
 	    mysqldataSource.setDriverClassName("com.mysql.jdbc.Driver");
 	    mysqldataSource.setUrl("jdbc:mysql://localhost:3306/zeus?useConfigs=maxPerformance&characterEncoding=utf8");
-	    mysqldataSource.setUsername("wolfpack_u");
-	    mysqldataSource.setPassword("wolfpack_p");
+	    mysqldataSource.setUsername("zeus_u");
+	    mysqldataSource.setPassword("zeus_p");
 //	    mysqldataSource.setUsername("root");
 //	    mysqldataSource.setPassword("root");
 	    return mysqldataSource; 

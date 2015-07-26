@@ -12,6 +12,7 @@ import org.joda.time.LocalDate;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestBody;
 //import org.springframework.core.env.Environment;
@@ -22,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
-
 
 import com.invntys.zeus.constants.ApplicationConstants;
 import com.invntys.zeus.dao.AccountDao;
@@ -51,8 +51,9 @@ public class RegisterController {
 		System.out.println(jsonString);
 		
 		JSONObject userobj = new JSONObject(jsonString);
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     	
-    		Account registerUser = new Account(userobj.getString("userName"), userobj.getString("password"), userobj.getString("displayName"), 0, null, null);
+    		Account registerUser = new Account(userobj.getString("userName"), passwordEncoder.encode(userobj.getString("password")), userobj.getString("displayName"), 0, null, null);
 
 			try
 			{

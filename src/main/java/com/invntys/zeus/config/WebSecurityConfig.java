@@ -15,6 +15,8 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 /**
@@ -62,9 +64,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .withUser("user").password("password").roles("USER");
     	
 		auth.jdbcAuthentication()
-		.dataSource(dataSource)
-		.usersByUsernameQuery("select userName, password, true from hyg_user where userName = ?")
-		.authoritiesByUsernameQuery("select userName, 'ROLE_USER' from hyg_user where userName = ?");
+		.dataSource(dataSource).passwordEncoder(passwordEncoder())
+		.usersByUsernameQuery("select userName, password, true from zeus_user where userName = ?")
+		.authoritiesByUsernameQuery("select userName, 'ROLE_USER' from zeus_user where userName = ?");
     }
     
 //	@Autowired
@@ -81,4 +83,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         cmr.setMaxUploadSize(1*1024*1024);
         return cmr;
     }
+    
+	@Bean
+	public PasswordEncoder passwordEncoder(){
+		PasswordEncoder encoder = new BCryptPasswordEncoder();
+		return encoder;
+	}
 }
