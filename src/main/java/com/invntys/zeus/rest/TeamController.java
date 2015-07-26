@@ -38,7 +38,7 @@ public class TeamController {
 		
 		JSONObject teamobj = new JSONObject(jsonString);
     	
-    		Account registerUser = new Account(teamobj.getString("teamName"), teamobj.getString("password"), teamobj.getString("displayName"), 0, null, null, null, null, null, null, null);
+    		Account registerUser = new Account(teamobj.getString("teamName"), teamobj.getString("password"), teamobj.getString("displayName"), 0, null, null);
 
 			try
 			{

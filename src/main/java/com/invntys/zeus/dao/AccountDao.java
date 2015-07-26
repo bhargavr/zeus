@@ -52,10 +52,9 @@ public class AccountDao
 		{
 			jdbcTemplate
 					.update(
-							"insert into hyg_user (user_id,create_date, userName, password, oauthToken, oauthSecret, displayName, cluster, personal_reward, community_reward, predicted_avg, wr_d_id) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+							"insert into zeus_user (user_id,create_date, userName, password, oauthToken, oauthSecret, displayName) values ( ?, ?, ?, ?, ?, ?, ?)",
 							user.getUser_id(), new Date(), user.getUsername(), user.getPassword(), user.getOauthToken(),
-							user.getOauthSecret(), user.getDisplayName(), user.getCluster(), user.getPersonalReward(),
-							user.getCommunityReward(), user.getPredicted_Avg(), user.getWr_d_id());
+							user.getOauthSecret(), user.getDisplayName());
 		}
 		catch (final DuplicateKeyException e)
 		{
@@ -65,32 +64,32 @@ public class AccountDao
 
 	public Account findAccountByUsername(String userName)
 	{
-		return jdbcTemplate.queryForObject("select userName, displayName, user_id, oauthToken, oauthSecret from hyg_user where userName = ?",
+		return jdbcTemplate.queryForObject("select userName, displayName, user_id, oauthToken, oauthSecret from zeus_user where userName = ?",
 				new RowMapper<Account>()
 				{
 					public Account mapRow(ResultSet rs, int rowNum) throws SQLException
 					{
 						return new Account(rs.getString("userName"), null, rs.getString("displayName"), rs.getInt("user_id"), rs.getString("oauthToken"),
-								rs.getString("oauthSecret"), null, null, null, null, null);
+								rs.getString("oauthSecret"));
 					}
 				}, userName);
 	}
 	
 	public int updateByUsername(String oauthToken, String oauthSecret, String userName)
 	{
-		return jdbcTemplate.update("update hyg_user set oauthToken = ?, oauthSecret = ? where userName = ?",oauthToken, oauthSecret,userName);
+		return jdbcTemplate.update("update zeus_user set oauthToken = ?, oauthSecret = ? where userName = ?",oauthToken, oauthSecret,userName);
 	}
 	
 	public List<Account> getAllAccounts(String userName)
 	{
-		final List<Map<String, Object>> accountList = jdbcTemplate.queryForList("select * from hyg_user");
+		final List<Map<String, Object>> accountList = jdbcTemplate.queryForList("select * from zeus_user");
 		
 		List<Account> userList = new ArrayList<Account>();
 
 		for (final Map account : accountList)
 		{
 			 Account accountObj = new Account(account.get("userName").toString(), null, account.get("displayName").toString(), (Integer)account.get("user_id"), null,
-						null, null, null, null, null, account.get("wr_d_id").toString());
+						null);
 			 userList.add(accountObj);
 			}
 		

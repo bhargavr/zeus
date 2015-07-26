@@ -13,12 +13,9 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
-//import org.springframework.context.annotation.PropertySource;
-//import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
-
 
 @Configuration
-@ComponentScan(basePackages = "com.sjsu.wolfpack")
+@ComponentScan(basePackages = "com.invntys.zeus")
 @EnableAutoConfiguration
 @EnableTransactionManagement
 @EnableScheduling
@@ -40,8 +37,7 @@ public class Application
 		
 		DriverManagerDataSource mysqldataSource = new DriverManagerDataSource();
 	    mysqldataSource.setDriverClassName("com.mysql.jdbc.Driver");
-	    mysqldataSource.setUrl("jdbc:mysql://localhost:3306/wolfpack?useConfigs=maxPerformance&characterEncoding=utf8");
-//	    mysqldataSource.setUrl("jdbc:mysql://localhost:8889/clusterinformation");
+	    mysqldataSource.setUrl("jdbc:mysql://localhost:3306/zeus?useConfigs=maxPerformance&characterEncoding=utf8");
 	    mysqldataSource.setUsername("wolfpack_u");
 	    mysqldataSource.setPassword("wolfpack_p");
 //	    mysqldataSource.setUsername("root");

@@ -52,7 +52,7 @@ public class RegisterController {
 		
 		JSONObject userobj = new JSONObject(jsonString);
     	
-    		Account registerUser = new Account(userobj.getString("userName"), userobj.getString("password"), userobj.getString("displayName"), 0, null, null, null, null, null, null, null);
+    		Account registerUser = new Account(userobj.getString("userName"), userobj.getString("password"), userobj.getString("displayName"), 0, null, null);
 
 			try
 			{
